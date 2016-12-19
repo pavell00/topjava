@@ -35,7 +35,7 @@ public class SpringMain {
 
             //mealService.delete(5);
             //mealService.get(5);
-            //userService.getByEmail("user2@com");
+            userService.getByEmail("user2@com");
         }
     }
 }
