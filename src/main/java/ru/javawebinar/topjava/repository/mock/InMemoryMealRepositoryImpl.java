@@ -23,7 +23,6 @@ import static ru.javawebinar.topjava.util.MealsUtil.MEALS;
 @Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private static final Logger LOG = LoggerFactory.getLogger(InMemoryMealRepositoryImpl.class);
-
     private Map<Integer, Meal> repository = new ConcurrentHashMap<>(MEALS.size());
 
     public InMemoryMealRepositoryImpl(){
@@ -37,7 +36,6 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     @Override
     public Meal save(Meal meal) {
         AuthorizedUser authorizedUser = new AuthorizedUser();
-        LOG.info(Integer.toString(MEALS.size()));
         Meal new_meal;
         if (meal.getId()==null){
             new_meal = new Meal(meal.getDateTime(), meal.getDescription() , meal.getCalories(),

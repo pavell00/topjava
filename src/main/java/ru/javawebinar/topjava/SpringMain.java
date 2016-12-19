@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.MealServiceImpl;
+import ru.javawebinar.topjava.service.UserServiceImpl;
 import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,9 @@ public class SpringMain {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
             adminUserController.create(new User(1, "userName", "email", "password", Role.ROLE_ADMIN));
+
             MealServiceImpl mealService = appCtx.getBean(MealServiceImpl.class);
+            UserServiceImpl userService = appCtx.getBean(UserServiceImpl.class);
             //System.out.println(mealService.getAll().toString());
             //System.out.println(AuthorizedUser.id());
 
@@ -31,7 +34,8 @@ public class SpringMain {
             //System.out.println(mealService.getAll().toString());
 
             //mealService.delete(5);
-            mealService.get(5);
+            //mealService.get(5);
+            //userService.getByEmail("user2@com");
         }
     }
 }
