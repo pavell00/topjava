@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static ru.javawebinar.topjava.util.MealsUtil.MEALS;
@@ -24,6 +25,7 @@ import static ru.javawebinar.topjava.util.MealsUtil.MEALS;
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private static final Logger LOG = LoggerFactory.getLogger(InMemoryMealRepositoryImpl.class);
     private Map<Integer, Meal> repository = new ConcurrentHashMap<>(MEALS.size());
+    private AtomicInteger counter = new AtomicInteger(0);
 
     public InMemoryMealRepositoryImpl(){
         int i=0;
@@ -35,18 +37,11 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal save(Meal meal) {
-        AuthorizedUser authorizedUser = new AuthorizedUser();
-        Meal new_meal;
-        if (meal.getId()==null){
-            new_meal = new Meal(meal.getDateTime(), meal.getDescription() , meal.getCalories(),
-                    authorizedUser.id(), repository.size()+1 );
-        } else {
-            new_meal = new Meal(meal.getDateTime(), meal.getDescription() , meal.getCalories(),
-                    authorizedUser.id(), meal.getId() );
+        if (meal.isNew()){
+            meal.setId(counter.incrementAndGet());
         }
-        repository.put(repository.size()+1, new_meal);
-        LOG.info("InMemoryMealRepositoryImpl save: " + new_meal.toString());
-        return new_meal;
+        LOG.info("InMemoryMealRepositoryImpl save: " + meal.toString());
+        return repository.put(meal.getId(), meal);
     }
 
     @Override
