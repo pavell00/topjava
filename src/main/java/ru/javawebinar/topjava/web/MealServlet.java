@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
@@ -24,6 +25,7 @@ import java.util.Objects;
  */
 public class MealServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(MealServlet.class);
+
     private MealRepository repository;
 
     @Override
@@ -49,8 +51,8 @@ public class MealServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action==null){
-            LOG.info("getAll");
-            request.setAttribute("meals", MealsUtil.getWithExceeded(MealsUtil.MEALS, MealsUtil.DEFAULT_CALORIES_PER_DAY));
+            LOG.info("getAll MealsUtil.getWithExceeded");
+            request.setAttribute("meals", MealsUtil.getWithExceeded(repository.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
             request.getRequestDispatcher("/meals.jsp").forward(request, response);
         }else if (action.equals("delete")){
             int id = getId(request);
@@ -59,7 +61,7 @@ public class MealServlet extends HttpServlet {
             response.sendRedirect("meals");
         } else {
             final Meal meal = action.equals("create") ? new Meal(LocalDateTime.now(),
-                    "", 1000, AuthorizedUser.id(), 0): repository.get(getId(request));
+                    "", 1000, AuthorizedUser.id(), repository.getCountId()): repository.get(getId(request));
             request.setAttribute("meal", meal);
             request.getRequestDispatcher("mealEdit.jsp").forward(request, response);
         }

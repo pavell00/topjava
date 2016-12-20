@@ -25,7 +25,7 @@ import static ru.javawebinar.topjava.util.MealsUtil.MEALS;
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private static final Logger LOG = LoggerFactory.getLogger(InMemoryMealRepositoryImpl.class);
     private Map<Integer, Meal> repository = new ConcurrentHashMap<>(MEALS.size());
-    private AtomicInteger counter = new AtomicInteger(0);
+    private AtomicInteger counter = new AtomicInteger(MEALS.size());
 
     public InMemoryMealRepositoryImpl(){
         int i=0;
@@ -37,8 +37,12 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal save(Meal meal) {
+        LOG.info("isNew : " + meal.isNew());
         if (meal.isNew()){
             meal.setId(counter.incrementAndGet());
+        } else {
+            LOG.info("remove item : " + meal.getId());
+            //repository.remove(meal.getId());
         }
         LOG.info("InMemoryMealRepositoryImpl save: " + meal.toString());
         return repository.put(meal.getId(), meal);
@@ -82,5 +86,9 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
                 .sorted(Comparator.comparing(Meal::getTime))
                 .sorted(Comparator.comparing(Meal::getDate).reversed())
                 .collect(Collectors.toList());
+    }
+
+    public int getCountId(){
+        return counter.incrementAndGet();
     }
 }

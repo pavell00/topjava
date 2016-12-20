@@ -20,4 +20,6 @@ public interface MealRepository {
     //User getByEmail(String email);
 
     List<Meal> getAll();
+
+    int getCountId();
 }
