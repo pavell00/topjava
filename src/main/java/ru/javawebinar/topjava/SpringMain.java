@@ -10,7 +10,9 @@ import ru.javawebinar.topjava.service.UserServiceImpl;
 import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * User: gkislin
@@ -29,13 +31,21 @@ public class SpringMain {
             //System.out.println(mealService.getAll().toString());
             //System.out.println(AuthorizedUser.id());
 
+            //mealService.delete(8);
+            /*List<Meal> list = new ArrayList<>();
+            list = mealService.getAll();
+            list.stream().forEach(System.out::println);*/
+
             //Meal meal = new Meal(LocalDateTime.now(), "второй ужин", 2500, AuthorizedUser.id(), 10);
             //mealService.save(meal);
             //System.out.println(mealService.getAll().toString());
-
-            //mealService.delete(5);
             //mealService.get(5);
-            userService.getByEmail("user2@com");
+
+            //userService.delete(1);
+            //userService.getByEmail("user2@com");
+            /*List<User> list = new ArrayList<User>();
+            list = userService.getAll();
+            list.stream().forEach(System.out::println);*/
         }
     }
 }

@@ -20,16 +20,19 @@ import static ru.javawebinar.topjava.model.Role.ROLE_USER;
  */
 public class MealsUtil {
     public static final List<Meal> MEALS = Arrays.asList(
-            new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500, 1, 0),
+            new Meal(LocalDateTime.of(2015, Month.MAY, 29, 20, 0), "Ужин", 500, 1, 8),
+            new Meal(LocalDateTime.of(2015, Month.MAY, 29, 10, 0), "Завтрак", 500, 1, 6),
+            new Meal(LocalDateTime.of(2015, Month.MAY, 29, 13, 0), "Обед", 1000, 1, 7),
             new Meal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000, 1, 1),
+            new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500, 1, 0),
             new Meal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500, 1, 2),
-            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000, 1, 3),
-            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500, 1, 4),
-            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510, 1, 5)
+            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000, 2, 3),
+            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500, 2, 4),
+            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510, 2, 5)
     );
 
     public static final List<User> USERS = Arrays.asList(
-            new User(1, "user1", "user1@com", "123",  Role.ROLE_USER),
+            new User(1, "user3", "user3@com", "123",  Role.ROLE_USER),
             new User(2, "user2", "user2@com", "123",  Role.ROLE_USER)
     );
 

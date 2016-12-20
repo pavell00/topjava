@@ -55,6 +55,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         for (Integer key : repository.keySet()) {
             Meal value = repository.get(key);
             if (value.getId().equals(id)) {
+                repository.remove(key);
                 //System.out.println("delete Key = " + key + ", Value = " + value.getId());
                 return true;
             }
@@ -78,8 +79,13 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getAll() {
+        AuthorizedUser authorizedUser = new AuthorizedUser();
         List<Meal> list = new ArrayList<Meal>(repository.values());
-        LOG.info("List<Meal> getAll");
-        return list;
+        LOG.info("List<Meal> getAll sorted");
+        return list.stream()
+                .filter(s -> s.getUserId()==authorizedUser.id())
+                .sorted(Comparator.comparing(Meal::getTime))
+                .sorted(Comparator.comparing(Meal::getDate).reversed())
+                .collect(Collectors.toList());
     }
 }
