@@ -48,6 +48,7 @@ public class MealWithExceed extends BaseEntity {
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
                 ", exceed=" + exceed +
+                ", id=" + id +
                 '}';
     }
 }

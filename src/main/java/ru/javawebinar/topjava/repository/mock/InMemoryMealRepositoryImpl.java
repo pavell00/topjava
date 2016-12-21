@@ -30,7 +30,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     public InMemoryMealRepositoryImpl(){
         int i=0;
         for(Meal m: MEALS) {
-            repository.put(i, m);
+            repository.put(m.getId(), m);
             i++;
         }
     }
@@ -40,9 +40,6 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         LOG.info("isNew : " + meal.isNew());
         if (meal.isNew()){
             meal.setId(counter.incrementAndGet());
-        } else {
-            LOG.info("remove item : " + meal.getId());
-            //repository.remove(meal.getId());
         }
         LOG.info("InMemoryMealRepositoryImpl save: " + meal.toString());
         return repository.put(meal.getId(), meal);
@@ -50,17 +47,15 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public boolean delete(int id) {
-        //System.out.println(repository.size());
-        for (Integer key : repository.keySet()) {
-            Meal value = repository.get(key);
-            if (value.getId().equals(id)) {
-                repository.remove(key);
-                //System.out.println("delete Key = " + key + ", Value = " + value.getId());
-                return true;
-            }
+        if (repository.get(id) != null){
+            repository.remove(id);
+            LOG.info("delete " + id);
+            return true;
+            //LOG.info("key for delete " + repository.get(id).getId());
+        } else {
+            LOG.info("key(id) for delete not found ");
+            return false;
         }
-        LOG.info("delete " + id);
-        return false;
     }
 
     @Override

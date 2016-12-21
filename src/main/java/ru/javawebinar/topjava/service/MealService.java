@@ -20,6 +20,4 @@ public interface MealService {
     //Meal getByEmail(String email) throws NotFoundException;
 
     List<Meal> getAll();
-
-    void update(Meal user);
 }

@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.MealServiceImpl;
 import ru.javawebinar.topjava.service.UserServiceImpl;
+import ru.javawebinar.topjava.web.meal.MealRestController;
 import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class SpringMain {
 
             MealServiceImpl mealService = appCtx.getBean(MealServiceImpl.class);
             UserServiceImpl userService = appCtx.getBean(UserServiceImpl.class);
+            MealRestController mealRestController = appCtx.getBean(MealRestController.class);
             //System.out.println(mealService.getAll().toString());
             //System.out.println(AuthorizedUser.id());
 
@@ -46,6 +48,9 @@ public class SpringMain {
             /*List<User> list = new ArrayList<User>();
             list = userService.getAll();
             list.stream().forEach(System.out::println);*/
+
+            //mealRestController.rest_save(new Meal(LocalDateTime.now(), "test", 666, AuthorizedUser.id(), 1));
+            mealRestController.rest_getAll();
         }
     }
 }

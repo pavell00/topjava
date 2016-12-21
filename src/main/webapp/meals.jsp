@@ -13,12 +13,31 @@
         .exceeded {
             color: red;
         }
+        dt {
+            display: inline-block;
+            width: 170px;
+        }
+        dd {
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: top;
+        }
     </style>
 </head>
 <body>
 <section>
     <h2><a href="index.html">Home</a></h2>
     <h2>Meal list</h2>
+    <hr>
+        <dl>
+            <dt>StartDateTime:</dt>
+            <dd><input type="datetime-local" value="${StartDT}" name="StartDT"></dd>
+        </dl>
+        <dl>
+            <dt>EndDateTime:</dt>
+            <dd><input type="datetime-local" value="${EndDT}" name="EndDT"></dd>
+        </dl>
+        <button type="button" onclick="updateTable()">Отфильтровать</button>
     <hr>
     <a href="meals?action=create">Add Meal</a>
     <table border="1" cellpadding="8" cellspacing="0">
