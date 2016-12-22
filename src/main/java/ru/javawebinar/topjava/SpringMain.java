@@ -10,7 +10,10 @@ import ru.javawebinar.topjava.service.UserServiceImpl;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 import ru.javawebinar.topjava.web.user.AdminRestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,7 +53,12 @@ public class SpringMain {
             list.stream().forEach(System.out::println);*/
 
             //mealRestController.rest_save(new Meal(LocalDateTime.now(), "test", 666, AuthorizedUser.id(), 1));
-            mealRestController.rest_getAll();
+            //mealRestController.rest_getAll();
+            /*mealRestController.rest_getFiltered(LocalDate.of(2015, Month.MAY, 29), LocalDate.of(2015, Month.MAY, 29),
+                                 LocalTime.of(7, 0), LocalTime.of(14, 0));*/
+            //mealRestController.rest_get(1);
+            //mealRestController.rest_delete(1);
+
         }
     }
 }

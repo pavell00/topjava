@@ -10,9 +10,12 @@ import ru.javawebinar.topjava.repository.mock.InMemoryMealRepositoryImpl;
 import ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -46,11 +49,28 @@ public class MealRestController {
 
     public List<MealWithExceed> rest_getFiltered(LocalDate startDate, LocalDate endDate,
                                                  LocalTime startTime, LocalTime endTime) {
-
+        LOG.info("MealRestController List<MealWithExceed> rest_getFilteredWithDateTime() ");
         List<MealWithExceed> list = new ArrayList<MealWithExceed>(MealsUtil.getWithExceeded(service.getAll(),
                 MealsUtil.DEFAULT_CALORIES_PER_DAY));
-        list.stream().forEach(System.out::println);
-        LOG.info("MealRestController List<MealWithExceed> rest_getAll");
+        list.stream()
+                .filter(meal -> DateTimeUtil.isBetween2(meal.getDateTime(),startDate, endDate, startTime, endTime))
+                .forEach(System.out::println);
         return list;
+    }
+
+    public Meal rest_get(int id) {
+        if (service.get(id) != null){
+            Meal meal = new Meal(service.get(id).getDateTime(), service.get(id).getDescription(),
+                    service.get(id).getCalories(), AuthorizedUser.id(), service.get(id).getId());
+            LOG.info("found item " + meal.toString());
+            return meal;
+        } else { throw new NotFoundException("Not found entity with " + id); }
+    }
+
+    public  boolean rest_delete(int id) {
+        if (service.get(id) != null){
+            service.delete(id);
+            return true;
+        } else { throw new NotFoundException("Not found entity with " + id); }
     }
 }
