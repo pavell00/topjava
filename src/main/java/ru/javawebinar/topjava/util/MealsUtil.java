@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava.util;
 
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.MealWithExceed;
+import ru.javawebinar.topjava.to.MealWithExceed;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,11 +33,11 @@ public class MealsUtil {
         System.out.println(getFilteredWithExceededByCycle(MEALS, LocalTime.of(7, 0), LocalTime.of(12, 0), DEFAULT_CALORIES_PER_DAY));
     }
 
-    public static List<MealWithExceed> getWithExceeded(List<Meal> meals, int caloriesPerDay) {
+    public static List<MealWithExceed> getWithExceeded(Collection<Meal> meals, int caloriesPerDay) {
         return getFilteredWithExceeded(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);
     }
 
-    public static List<MealWithExceed> getFilteredWithExceeded(List<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
+    public static List<MealWithExceed> getFilteredWithExceeded(Collection<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
         Map<LocalDate, Integer> caloriesSumByDate = meals.stream()
                 .collect(
                         Collectors.groupingBy(Meal::getDate, Collectors.summingInt(Meal::getCalories))
@@ -65,6 +65,6 @@ public class MealsUtil {
     }
 
     public static MealWithExceed createWithExceed(Meal meal, boolean exceeded) {
-        return new MealWithExceed(meal.getDateTime(), meal.getDescription(), meal.getCalories(), exceeded);
+        return new MealWithExceed(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories(), exceeded);
     }
 }
