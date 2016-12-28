@@ -8,8 +8,10 @@ import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.*;
-
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -19,7 +21,8 @@ import static ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl.
 import static ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl.USER_ID;
 
 /**
- * Created by net_master on 16.12.2016.
+ * GKislin
+ * 15.09.2015.
  */
 @Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
@@ -83,3 +86,4 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
                 Stream.empty() : meals.values().stream().sorted(MEAL_COMPARATOR);
     }
 }
+
