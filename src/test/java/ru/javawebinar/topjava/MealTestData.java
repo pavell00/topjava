@@ -21,6 +21,8 @@ public class MealTestData {
 
     public static final Meal MEAL = new Meal(MEAL_ID, LocalDateTime.of(2016, Month.DECEMBER, 29, 10, 0),
             "завтрак", 300);
+    public static final Meal MEAL_1 = new Meal(MEAL_ID, LocalDateTime.of(2016, Month.DECEMBER, 29, 14, 0),
+            "обед", 500);
 
     public static final ModelMatcher<Meal> MATCHER = new ModelMatcher<>();
 
