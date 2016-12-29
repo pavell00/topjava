@@ -1,11 +1,13 @@
 package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.matcher.ModelMatcher;
+import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.function.Function;
 
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 
@@ -15,11 +17,10 @@ import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
  */
 public class MealTestData {
 
-    public static final int MEAL_ID = START_SEQ;
+    public static final int MEAL_ID = BaseEntity.START_SEQ+2;
 
     public static final Meal MEAL = new Meal(MEAL_ID, LocalDateTime.of(2016, Month.DECEMBER, 29, 10, 0),
-            "завтрак",
-            MealsUtil.DEFAULT_CALORIES_PER_DAY);
+            "завтрак", 300);
 
     public static final ModelMatcher<Meal> MATCHER = new ModelMatcher<>();
 

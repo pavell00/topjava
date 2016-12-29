@@ -12,6 +12,10 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,6 +28,11 @@ import java.util.List;
 public class JdbcMealRepositoryImpl implements MealRepository {
 
     private static final BeanPropertyRowMapper<Meal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Meal.class);
+
+    public Meal mapRow(ResultSet rs, int rowNum) throws SQLException{
+        return new Meal(rs.getInt("id"), rs.getTimestamp("dateTime").toLocalDateTime(),
+                rs.getString("description"), rs.getInt("calories"));
+    }
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -77,6 +86,6 @@ public class JdbcMealRepositoryImpl implements MealRepository {
     @Override
     public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return jdbcTemplate.query("SELECT * FROM meals WHERE datetime>=:startDate AND datetime<=:endDate" +
-                " ORDER BY datetime DESC", ROW_MAPPER);
+                " ORDER BY datetime DESC", ROW_MAPPER, Timestamp.valueOf(startDate), Timestamp.valueOf(endDate));
     }
 }
