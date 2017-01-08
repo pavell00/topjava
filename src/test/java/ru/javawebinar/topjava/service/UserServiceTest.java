@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static ru.javawebinar.topjava.UserTestData.*;
-
+//1212
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
