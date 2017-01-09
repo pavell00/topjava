@@ -1,6 +1,9 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,6 +28,9 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
+
+    @Rule
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Autowired
     private MealService service;
@@ -58,6 +64,12 @@ public class MealServiceTest {
         service.get(MEAL1_ID, ADMIN_ID);
     }
 
+/*    @Test()
+    public void testExpectedException_GetNotFoundRule() throws Exception {
+        thrown.expect(NotFoundException.class);
+        service.get(MEAL1_ID, ADMIN_ID);
+    }
+*/
     @Test
     public void testUpdate() throws Exception {
         Meal updated = getUpdated();
