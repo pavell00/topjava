@@ -13,13 +13,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
+import static ru.javawebinar.topjava.model.Meal.ALL_MEALS_NATIVE_QUERY;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -28,6 +33,9 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
@@ -91,5 +99,14 @@ public class MealServiceTest {
     public void testGetBetween() throws Exception {
         MATCHER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
                 service.getBetweenDates(LocalDate.of(2015, Month.MAY, 30), LocalDate.of(2015, Month.MAY, 30), USER_ID));
+    }
+
+    @Test
+    public void testNativeQuery(){
+        Collection<Meal> mealCollection = em.createNativeQuery(ALL_MEALS_NATIVE_QUERY, Meal.class).getResultList();
+        MATCHER.assertCollectionEquals(MEALS, mealCollection);
+        for (Meal m: mealCollection) {
+            System.out.println(m);
+        }
     }
 }

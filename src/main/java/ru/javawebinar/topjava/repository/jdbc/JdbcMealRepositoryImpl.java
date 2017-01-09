@@ -14,7 +14,10 @@ import ru.javawebinar.topjava.repository.MealRepository;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
+
+import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 /**
  * User: gkislin
